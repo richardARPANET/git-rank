@@ -4,7 +4,7 @@ git-rank
 A simple ranked representation of contributions to a git repository.
 
 
-# Running
+## Running
 
 Copy git-rank into a repository directory and run it. E.g:
 
