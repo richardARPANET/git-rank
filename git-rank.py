@@ -90,8 +90,9 @@ class User(object):
 
         # get CommitStats objects
         stats = self._stats.values()
+        stats.sort(key=stat_key)
         # get each CommitStat key (user)
-        stats = map(lambda statset: statset.name(), stats)
+        stats = [(lambda stat_set: stat_set.name())(stat_set) for stat_set in stats]
 
         stats.reverse()
         return iter(stats)
