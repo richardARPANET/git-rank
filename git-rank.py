@@ -88,9 +88,10 @@ class User(object):
             # sort CommitStats by this
             return stat.num_files_changed()
 
+        # get CommitStats objects
         stats = self._stats.values()
-        stats.sort(key=stat_key)
-        stats = map(lambda statset: statset.name(), stats)  # want keys, not values
+        # get each CommitStat key (user)
+        stats = [s.name() for s in stats]
 
         stats.reverse()
         return iter(stats)
@@ -170,13 +171,14 @@ if __name__ == '__main__':
         print 'No commits found, exiting'
         sys.exit('0')
 
+    # print heading
     print '\033[1m{0}{1}{2}{3}{4}{5}\033[0m'.format('{0: <{1}}'.format('user', MAX_NAME_LEN),
                                                     '{0: <8}'.format('commits'),
                                                     '{0: <8}'.format('files'),
                                                     '{0: <8}'.format('added'),
                                                     '{0: <8}'.format('removed'),
                                                     '{0: <8}'.format('diff'))
-
+    # print stats
     for user in stats:
         print '{0}{1}{2}{3}{4}{5}'.format('{0: <{1}}'.format(trim_name(user), MAX_NAME_LEN),
                                           '{0: <8}'.format(stats[user].commits()),
