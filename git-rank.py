@@ -91,7 +91,7 @@ class User(object):
         # get CommitStats objects
         stats = self._stats.values()
         # get each CommitStat key (user)
-        stats = [s.name() for s in stats]
+        stats = map(lambda statset: statset.name(), stats)
 
         stats.reverse()
         return iter(stats)
