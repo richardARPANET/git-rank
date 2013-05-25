@@ -20,7 +20,7 @@ def get_stats():
 
 def parse_log(log):
 
-    class parse_commit_data(object):
+    class ParseCommitData(object):
         # temp class for commit stats being parsed
         user = None
         added = 0
@@ -47,10 +47,10 @@ def parse_log(log):
 
         if line.startswith('+'):
             # process previous item commit data
-            if parse_commit_data.user is not None and len(parse_commit_data.files) > 0:
-                user_stats[parse_commit_data.user].add(parse_commit_data.commit_stat())
+            if ParseCommitData.user is not None and len(ParseCommitData.files) > 0:
+                user_stats[ParseCommitData.user].add(ParseCommitData.commit_stat())
             # reset count and remove '+'
-            parse_commit_data.reset(line[1:])
+            ParseCommitData.reset(line[1:])
         else:
             # gather single file data
             match = re.match(r'^\s*(\d*)\t(\d*)\t(.*)', line, re.MULTILINE)
@@ -58,13 +58,13 @@ def parse_log(log):
                 raise ValueError('Could not parse commit data')
 
             added, removed, filename = match.group(1, 2, 3)
-            parse_commit_data.removed += int(removed)
-            parse_commit_data.added += int(added)
-            parse_commit_data.files.add(filename)
+            ParseCommitData.removed += int(removed)
+            ParseCommitData.added += int(added)
+            ParseCommitData.files.add(filename)
 
             # final commit
-            if parse_commit_data.user is not None and len(parse_commit_data.files) >= 1:
-                user_stats[parse_commit_data.user].add(parse_commit_data.commit_stat())
+            if ParseCommitData.user is not None and len(ParseCommitData.files) >= 1:
+                user_stats[ParseCommitData.user].add(ParseCommitData.commit_stat())
 
     return user_stats
 
