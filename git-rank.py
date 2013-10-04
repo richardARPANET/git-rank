@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/bin/env python2.7
 import subprocess
 import sys
 import re
